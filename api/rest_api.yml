@@ -1,0 +1,1425 @@
+openapi: 3.0.0
+
+info:
+  title: Social network for travelers
+  version: 0.0.1
+
+servers:
+  - url: http://localhost:8080/api/v1/
+    description: api-v1-0.0.1
+
+paths:
+  /posts:
+    post:
+      summary: Create new post
+      description: User creates a new post
+      tags:
+        - Posts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePost'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/GetPost'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        503:
+          description: Server Unavaliable
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+  /posts/{id}:
+    get:
+      summary: Get post by id
+      description: User receives the post content
+      tags:
+        - Posts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+                schema:
+                  type: object
+                  properties:
+                    status:
+                      type: number
+                      format: status
+                    body:
+                      $ref: '#/components/schemas/GetPost'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        404:
+          description: Not Found
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        503:
+          description: Server Unavaliable
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+    put:
+      summary: Change post by id
+      description: User changes the post
+      tags:
+        - Posts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutPost'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+                schema:
+                  type: object
+                  properties:
+                    status:
+                      type: number
+                      format: status
+                    body:
+                      $ref: '#/components/schemas/GetPost'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        404:
+          description: Not Found
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        503:
+          description: Server Unavaliable
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+    delete:
+      summary: Delete post by id
+      description: User deletes the post
+      tags:
+        - Posts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        404:
+          description: Not Found
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        503:
+          description: Server Unavaliable
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+  /posts/{id}/reactions:
+    post:
+      summary: Set post reaction
+      description: User reacts to the post
+      tags:
+        - Posts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reaction'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        404:
+          description: Not Found
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        503:
+          description: Server Unavaliable
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+  /posts/{id}/comments:
+    get:
+      summary: Check post comments
+      description: User checks all post comments
+      tags:
+        - Posts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: number
+        - name: perPage
+          description: number of objects per page
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        404:
+          description: Not Found
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        503:
+          description: Server Unavaliable
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+    post:
+      summary: Create new comment
+      description: Create new comment
+      tags:
+        - Posts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comment'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        404:
+          description: Not Found
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        503:
+          description: Server Unavaliable
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+  /posts/{postID}/comments/{commID}:
+    put:
+      summary: Change comment
+      description: Change comment
+      tags:
+        - Posts
+      parameters:
+        - name: postID
+          in: path
+          required: true
+          schema:
+            type: number
+        - name: commID
+          in: path
+          required: true
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comment'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        404:
+          description: Not Found
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        503:
+          description: Server Unavaliable
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+    delete:
+      summary: Delete comment
+      description: Delete comment
+      tags:
+        - Posts
+      parameters:
+        - name: postID
+          in: path
+          required: true
+          schema:
+            type: number
+        - name: commID
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        404:
+          description: Not Found
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        503:
+          description: Server Unavaliable
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+  /users:
+    post:
+      summary: Create new user
+      description: Create new user
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUser'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        503:
+          description: Server Unavaliable
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+  /users/{id}:
+    get:
+      summary: Get user page
+      description: Get user info and feed
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: number
+        - name: perPage
+          description: Number of loaded posts on the user page
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/GetUserPage'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        404:
+          description: Not Found
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        503:
+          description: Server Unavaliable
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+    put:
+      summary: Change user profile
+      description: Change user profile
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUser'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/GetUserPage'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        404:
+          description: Not Found
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        503:
+          description: Server Unavaliable
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+    delete:
+      summary: Remove user profile
+      description: Remove user profile
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        404:
+          description: Not Found
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        503:
+          description: Server Unavaliable
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+  /users/{id}/sub:
+    post:
+      summary: Subscribe to user
+      description: Subscribe to user
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                  description: subscriber
+                followingID:
+                  type: string
+                  format: uuid
+                  description: subscribe to
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        404:
+          description: Not Found
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        503:
+          description: Server Unavaliable
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+  /feed:
+    get:
+      summary: Get user feed
+      description: Receive a feed with content from subscriptions
+      tags:
+        - Feed
+      parameters:
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: number
+        - name: perPage
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+                schema:
+                  type: array
+                  items:
+                    allOf:
+                      - $ref: '#/components/schemas/GetPost'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        503:
+          description: Server Unavaliable
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+  /feed/globalRating:
+    get:
+      summary: Get the highest rated places
+      description: Get the highest rated places around the world
+      tags:
+        - Feed
+      parameters:
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: number
+        - name: perPage
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+                schema:
+                  type: array
+                  items:
+                    allOf:
+                      - $ref: '#/components/schemas/GetPost'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        503:
+          description: Server Unavaliable
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+  /locations:
+    get:
+      summary: Search bar for searching specific places
+      description: Search bar for searching specific places
+      tags:
+        - Locations
+      parameters:
+        - name: country
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: city
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: number
+        - name: perPage
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+                schema:
+                  type: array
+                  items:
+                    allOf:
+                      - $ref: '#/components/schemas/GetPost'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        503:
+          description: Server Unavaliable
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+  /chats:
+    get:
+      summary: Show chats list
+      description: Show chats list
+      tags:
+        - Chats
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+                schema:
+                  type: array
+                  items:
+                    allOf:
+                      - $ref: '#/components/schemas/GetChats'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        503:
+          description: Server Unavaliable
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+  /chats/{userID}:
+    get:
+      summary: Show pm with user
+      description: Show pm with user
+      tags:
+        - Chats
+      parameters:
+        - name: userID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+                schema:
+                  type: array
+                  items:
+                    allOf:
+                      - $ref: '#/components/schemas/ChatMessage'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        503:
+          description: Server Unavaliable
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+    post:
+      summary: Send pm to user
+      description: Send pm to user
+      tags:
+        - Chats
+      parameters:
+        - name: userID
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: string
+                  format: uuid
+                receivingUser:
+                  type: string
+                  format: uuid
+                message:
+                  type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+        503:
+          description: Server Unavaliable
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PostReqResponse'
+    
+components:
+  schemas:
+    Image:
+      type: string
+      description: link to image
+    UserInfo:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        login:
+          type: string
+        password:
+          type: string
+    PostContent:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        text:
+          type: string
+        image:
+          $ref: '#/components/schemas/Image'
+    IDInfo:
+      type: object
+      properties:
+        newObject:
+          type: boolean
+        id:
+          type: string
+          format: uuid
+    PostInfo:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        owner:
+          type: string
+          format: uuid
+    CreatedAt:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date
+    Location:
+      type: object
+      properties:
+        countryID:
+          type: string
+          format: uuid
+        cityID:
+          type: string
+          format: uuid
+    Author:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        nickname:
+          type: string
+        avatar:
+          $ref: '#/components/schemas/Image'
+    Reaction:
+      type: object
+      properties:
+        post:
+          $ref: '#/components/schemas/PostInfo'
+        reacting:
+          type: string
+          format: uuid
+        reaction:
+          type: string
+          format: uuid
+    Comment:
+      type: object
+      properties:
+        post:
+          $ref: '#/components/schemas/PostInfo'
+        commentator:
+          type: string
+          format: uuid
+        comment:
+          type: object
+          properties:
+            new:
+              type: boolean
+            id:
+              type: string
+              format: uuid
+            text:
+              type: string
+    ChatShort:
+      type: object
+      properties:
+        avatar:
+          $ref: '#/components/schemas/Image'
+        title:
+          type: string
+        lastMessage:
+          type: string
+    ChatMessage:
+      type: object
+      properties:
+        user:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            avatar:
+              type: string
+            nickname:
+              type: string
+        message:
+          type: string
+        
+    CreateUser:
+      type: object
+      properties:
+        private:
+          type: object
+          properties:
+            login:
+              type: string
+            password:
+              type: string
+        name:
+          type: string
+        nickname:
+          type: string
+        avatar:
+          type: string
+          description: by link
+        location:
+          type: string
+          format: uuid
+          
+    GetUserPage:
+      type: object
+      properties:
+        user:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            nickname:
+              type: string
+            avatar:
+              type: string
+            location:
+              type: string
+              format: uuid
+        posts:
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/GetPost'
+    GetChats:
+      type: object
+      properties:
+        chats:
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/ChatShort'
+    
+    GetPost:
+      type: object
+      properties:
+        author:
+          $ref: '#/components/schemas/Author'
+        content:
+          $ref: '#/components/schemas/PostContent'
+        rating:
+          type: number
+        location:
+          $ref: '#/components/schemas/Location'
+        createdAt:
+          $ref: '#/components/schemas/CreatedAt'
+    
+    CreatePost:
+      type: object
+      properties:
+        content:
+          $ref: '#/components/schemas/PostContent'
+        location:
+          $ref: '#/components/schemas/Location'
+        createdAt:
+          $ref: '#/components/schemas/CreatedAt'
+    PutPost:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        content:
+          $ref: '#/components/schemas/PostContent'
+        location:
+          $ref: '#/components/schemas/Location'
+        createdAt:
+          $ref: '#/components/schemas/CreatedAt'
+          
+    PostReqResponse:
+      type: object
+      properties:
+        status:
+          type: number
+          format: status
+        body:
+          type: object
+        
+          
+        
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
